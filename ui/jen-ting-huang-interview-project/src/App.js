@@ -50,8 +50,20 @@ function App() {
     handleFormDataChange("type", e.target.checked);
   };
 
+  // Handle Clear button
+  const handleClear = () => {
+    setFormData({
+      label: "",
+      type: false,
+      defaultValue: "",
+      choices: [],
+    });
+  };
+
   // Function to execute when the user clicks the "Save" button
-  const handleCheck = () => {
+  const handleSubmit = (e) => {
+    // Prevent the default form submission
+    e.preventDefault();
     // If the label is not filled, alert the user
     if (!isLabelFilled) {
       alert("Please fill in the label");
@@ -74,7 +86,7 @@ function App() {
   };
 
   return (
-    <div className="survey">
+    <form className="survey" onSubmit={handleSubmit}>
       <Header />
 
       <Item labelText="Label">
@@ -105,10 +117,10 @@ function App() {
       </Item>
 
       <Item labelText="">
-        <Button onClick={handleCheck} />
-        <Button />
+        <Button type="submit" />
+        <Button onClick={handleClear} />
       </Item>
-    </div>
+    </form>
   );
 }
 
