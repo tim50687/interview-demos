@@ -27,11 +27,13 @@ const TextArea = ({ choices, onChoicesChange }) => {
       if (!newCountry) {
         setShowEmptyWarning(true);
         e.preventDefault();
+        return;
       }
       // Check for duplicate country
       if (choices.includes(newCountry)) {
         setShowDuplicateWarning(true);
         e.preventDefault();
+        return;
       }
 
       // Add the new country to the list

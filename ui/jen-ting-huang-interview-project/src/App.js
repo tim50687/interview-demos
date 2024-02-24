@@ -12,7 +12,7 @@ import DropDown from "./components/Field/components/DropDown";
 import CheckBox from "./components/Field/components/Checkbox";
 
 // Import the FieldService
-import FieldService from "../../js/MockService";
+import FieldService from "./MockService";
 
 function App() {
   // State for form data
