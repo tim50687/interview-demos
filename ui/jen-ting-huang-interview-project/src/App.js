@@ -15,7 +15,8 @@ function App() {
   // State for form data
   const [formData, setFormData] = useState({
     label: "",
-    type: "multi-select",
+    type: false,
+    defaultValue: "",
     choices: [],
   });
   console.log(formData);
@@ -28,14 +29,25 @@ function App() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle the onChange for input component
+  // Handle the onChange for input component for label
   const handleLabelChange = (e) => {
     handleFormDataChange("label", e.target.value);
     setIsLabelFilled(e.target.value.length > 0);
   };
 
+  // Handle the onChange for input component for default value
+  const handleDefaultValueChange = (e) => {
+    handleFormDataChange("defaultValue", e.target.value);
+  };
+
+  // Handle the onChange for textarea component for choices
   const handleChoicesChange = (e) => {
     handleFormDataChange("choices", e);
+  };
+
+  // Handle type change
+  const handleTypeChange = (e) => {
+    handleFormDataChange("type", e.target.checked);
   };
 
   // Function to execute when the user clicks the "Save" button
@@ -47,6 +59,17 @@ function App() {
     // Check if choices are more than 50
     if (formData.choices.length > 50) {
       alert("You have more than 50 choices");
+    }
+    // Check if the default value is in the choices
+    if (!formData.choices.includes(formData.defaultValue)) {
+      if (formData.choices.length < 50) {
+        // Add the default value to the choices
+        handleChoicesChange([...formData.choices, formData.defaultValue]);
+      } else {
+        alert(
+          "You have already 50 choices, I cannot add default value for you into the choice."
+        );
+      }
     }
   };
 
@@ -60,12 +83,15 @@ function App() {
 
       <Item labelText="Type">
         <span>Multi-select</span>
-        <CheckBox />
+        <CheckBox checked={formData.checked} onChange={handleTypeChange} />
       </Item>
 
-      {/* <Item labelText="Default Value">
-        <Input />
-      </Item> */}
+      <Item labelText="Default Value">
+        <Input
+          value={formData.defaultValue}
+          onChange={handleDefaultValueChange}
+        />
+      </Item>
 
       <Item labelText="Choices">
         <TextArea
