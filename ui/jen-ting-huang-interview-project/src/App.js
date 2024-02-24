@@ -12,13 +12,24 @@ import DropDown from "./components/Field/components/DropDown";
 import CheckBox from "./components/Field/components/Checkbox";
 
 function App() {
-  // State for label text
-  const [labelText, setLabelText] = useState("");
+  // State for form data
+  const [formData, setFormData] = useState({
+    label: "",
+    type: "multi-select",
+    choices: [],
+  });
+
+  // State for label text is filled or not
   const [isLabelFilled, setIsLabelFilled] = useState(false);
+
+  // Handler to update specific form data field
+  const handleFormDataChange = (name, value) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   // Handle the onChange for input component
   const handleLabelChange = (e) => {
-    setLabelText(e.target.value);
+    handleFormDataChange("label", e.target.value);
     setIsLabelFilled(e.target.value.length > 0);
   };
 
@@ -35,7 +46,7 @@ function App() {
       <Header />
 
       <Item labelText="Label">
-        <Input value={labelText} onChange={handleLabelChange} />
+        <Input value={formData.label} onChange={handleLabelChange} />
       </Item>
 
       <Item labelText="Type">

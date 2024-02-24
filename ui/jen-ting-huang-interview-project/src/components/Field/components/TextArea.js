@@ -25,7 +25,9 @@ const TextArea = () => {
         setShowEmptyWarning(true);
         setShowDuplicateWarning(false);
         e.preventDefault();
-      } else if (country.includes(newCountry)) {
+      }
+      // Check for duplicate country
+      else if (country.includes(newCountry)) {
         setShowDuplicateWarning(true);
         setShowEmptyWarning(false);
         e.preventDefault();
