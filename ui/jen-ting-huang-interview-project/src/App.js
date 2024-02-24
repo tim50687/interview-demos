@@ -14,22 +14,28 @@ function App() {
   return (
     <div className="survey">
       <Header />
+
       <Item labelText="Label">
         <Input />
       </Item>
+
       <Item labelText="Type">
         <span>Multi-select</span>
         <CheckBox />
       </Item>
+
       <Item labelText="Default Value">
         <Input />
       </Item>
+
       <Item labelText="Choices">
         <TextArea />
       </Item>
+
       <Item labelText="Order">
         <DropDown />
       </Item>
+
       <Item labelText="">
         <Button />
         <Button />
