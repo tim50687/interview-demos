@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const TextArea = ({ choices, onChoicesChange }) => {
   // State for the country input
   const [currentInput, setCurrentInput] = useState("");
+
+  // If someone touches the choices externally, update the input so that it will render correctly
+  useEffect(() => {
+    setCurrentInput(choices.join("\n"));
+  }, [choices]);
 
   // State for duplicate country warning
   const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
