@@ -11,6 +11,9 @@ import Button from "./components/Field/components/Button";
 import DropDown from "./components/Field/components/DropDown";
 import CheckBox from "./components/Field/components/Checkbox";
 
+// Import the FieldService
+import FieldService from "../../js/MockService";
+
 function App() {
   // State for form data
   const [formData, setFormData] = useState({
@@ -83,6 +86,9 @@ function App() {
         );
       }
     }
+
+    // Send the form data to the FieldService
+    FieldService.saveField(formData);
   };
 
   return (
@@ -95,7 +101,7 @@ function App() {
 
       <Item labelText="Type">
         <span>Multi-select</span>
-        <CheckBox checked={formData.checked} onChange={handleTypeChange} />
+        <CheckBox checked={formData.type} onChange={handleTypeChange} />
       </Item>
 
       <Item labelText="Default Value">
