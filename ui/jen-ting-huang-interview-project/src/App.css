@@ -1,0 +1,24 @@
+.item-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.item-wrapper > :first-child {
+  flex-basis: 30%;
+  text-align: left;
+}
+
+.item-wrapper > :last-child {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.survey {
+  width: 100%;
+  max-width: 480px;
+  height: 88vh;
+  margin: 0 auto;
+  background-color: var(--color-white);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
