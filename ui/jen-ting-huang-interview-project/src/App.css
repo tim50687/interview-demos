@@ -1,24 +1,81 @@
+:root {
+  --color-main: #eb8457;
+  --color-text: #383a3f;
+  --color-dark: #1f2124;
+  --color-gray: #677;
+  --color-bg: #f3f6f9;
+  --color-light: #acb4bd;
+  --color-lighter: #f9f9f9;
+  --color-white: #fff;
+  --color-border: #e0e3e6;
+}
+
 .item-wrapper {
-  display: flex;
-  align-items: center;
+  display: flex; /* Establishes a flex container */
+  align-items: flex-start; /* Aligns children to the start of the cross axis, which is the top in a row layout */
+  padding: 10px; /* Adds padding around the flex container */
 }
 
 .item-wrapper > :first-child {
-  flex-basis: 30%;
-  text-align: left;
+  flex-basis: 30%; /* Sets the initial size of the flex item */
+  text-align: left; /* Aligns text to the left */
 }
 
 .item-wrapper > :last-child {
-  flex-grow: 1;
-  text-align: left;
+  flex-grow: 1; /* Takes up remaining space */
+  text-align: left; /* Aligns text to the left */
 }
-
 .survey {
   width: 100%;
   max-width: 480px;
-  height: 88vh;
+  height: auto;
   margin: 0 auto;
   background-color: var(--color-white);
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
   position: relative;
+}
+
+.survey-header {
+  display: flex;
+  height: 20px;
+  align-items: center;
+  padding: 16px;
+  justify-content: space-between;
+  background-color: var(--color-main);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-inline {
+  display: inline-block;
+}
+
+.field-children {
+  width: 70%; /* Or any specific width */
+  height: auto;
+}
+
+.submit-button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.clear-button {
+  background-color: rgb(243, 60, 60);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+/* Hover effects for better user experience */
+.submit-button:hover,
+.clear-button:hover {
+  opacity: 0.8;
 }

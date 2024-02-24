@@ -1,7 +1,7 @@
-const Input = ({ value, onChange }) => {
+const Input = ({ value, onChange, className }) => {
   return (
     <div>
-      <input value={value} onChange={onChange} />
+      <input className={className} value={value} onChange={onChange} />
     </div>
   );
 };

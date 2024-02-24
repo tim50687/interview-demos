@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const TextArea = ({ choices, onChoicesChange }) => {
+const TextArea = ({ choices, onChoicesChange, className }) => {
   // State for the country input
   const [currentInput, setCurrentInput] = useState("");
 
@@ -70,12 +70,15 @@ const TextArea = ({ choices, onChoicesChange }) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         rows={10}
+        className={className}
       ></textarea>
       {showDuplicateWarning && (
         <p className="warning">You have already added this country</p>
       )}
       {showEmptyWarning && <p className="warning">Please enter a country</p>}
-      {notification && <p className="notification">{notification}</p>}
+      {notification && choices.length !== 0 && (
+        <p className="notification">{notification}</p>
+      )}
     </div>
   );
 };

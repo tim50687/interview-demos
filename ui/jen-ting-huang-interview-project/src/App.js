@@ -22,10 +22,12 @@ function App() {
     defaultValue: "",
     choices: [],
   });
-  console.log(formData);
 
   // State for label text is filled or not
   const [isLabelFilled, setIsLabelFilled] = useState(false);
+
+  // State for original choices
+  const [originalChoices, setOriginalChoices] = useState([]);
 
   // Handler to update specific form data field
   const handleFormDataChange = (name, value) => {
@@ -61,6 +63,31 @@ function App() {
       defaultValue: "",
       choices: [],
     });
+    // Make sure originalChoices is cleared
+    setOriginalChoices([]);
+    // Make drop down back to default
+    const dropDown = document.querySelector("select");
+    dropDown.selectedIndex = 0;
+  };
+
+  // Handle order change
+  const handleOrderChange = (orderType) => {
+    // Only store the original choices once
+    if (originalChoices.length === 0) {
+      setOriginalChoices(formData.choices);
+    }
+    // Order choices based on the order type
+    if (orderType === "alphabetical") {
+      const sortedChoices = [...formData.choices].sort();
+      handleFormDataChange("choices", sortedChoices);
+    } else if (orderType === "length") {
+      const sortedChoices = [...formData.choices].sort(
+        (a, b) => a.length - b.length
+      );
+      handleFormDataChange("choices", sortedChoices);
+    } else if (orderType === "") {
+      handleFormDataChange("choices", originalChoices);
+    }
   };
 
   // Function to execute when the user clicks the "Save" button
@@ -96,18 +123,28 @@ function App() {
       <Header />
 
       <Item labelText="Label">
-        <Input value={formData.label} onChange={handleLabelChange} />
+        <Input
+          className="field-children"
+          value={formData.label}
+          onChange={handleLabelChange}
+        />
       </Item>
 
       <Item labelText="Type">
         <span>Multi-select</span>
-        <CheckBox checked={formData.type} onChange={handleTypeChange} />
+        <CheckBox
+          label="A value is required"
+          checked={formData.type}
+          onChange={handleTypeChange}
+          className="checkbox-inline field-children"
+        />
       </Item>
 
       <Item labelText="Default Value">
         <Input
           value={formData.defaultValue}
           onChange={handleDefaultValueChange}
+          className="field-children"
         />
       </Item>
 
@@ -115,16 +152,18 @@ function App() {
         <TextArea
           choices={formData.choices}
           onChoicesChange={handleChoicesChange}
+          className="field-children"
         />
       </Item>
 
       <Item labelText="Order">
-        <DropDown />
+        <DropDown onSelect={handleOrderChange} className="field-children" />
       </Item>
 
       <Item labelText="">
-        <Button type="submit" />
-        <Button onClick={handleClear} />
+        <Button label="Save Changes" type="submit" className="submit-button" />
+        <span> Or </span>
+        <Button label="Clear" onClick={handleClear} className="clear-button" />
       </Item>
     </form>
   );

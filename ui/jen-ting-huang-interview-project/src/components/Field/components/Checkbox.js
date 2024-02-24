@@ -1,7 +1,8 @@
-const CheckBox = ({ checked, onChange }) => {
+const CheckBox = ({ checked, onChange, label, className }) => {
   return (
-    <div>
-      <input type="checkbox" checked={checked} onChange={onChange}></input>
+    <div className={className}>
+      <input type="checkbox" checked={checked} onChange={onChange} />
+      {label}
     </div>
   );
 };
