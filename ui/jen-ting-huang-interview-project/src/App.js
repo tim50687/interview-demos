@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 
 import Header from "./components/Header";
 import Item from "./components/Item";
@@ -11,12 +12,30 @@ import DropDown from "./components/Field/components/DropDown";
 import CheckBox from "./components/Field/components/Checkbox";
 
 function App() {
+  // State for label text
+  const [labelText, setLabelText] = useState("");
+  const [isLabelFilled, setIsLabelFilled] = useState(false);
+
+  // Handle the onChange for input component
+  const handleLabelChange = (e) => {
+    setLabelText(e.target.value);
+    setIsLabelFilled(e.target.value.length > 0);
+  };
+
+  // Function to execute when the user clicks the "Save" button
+  const handleCheck = () => {
+    // If the label is not filled, alert the user
+    if (!isLabelFilled) {
+      alert("Please fill in the label");
+    }
+  };
+
   return (
     <div className="survey">
       <Header />
 
       <Item labelText="Label">
-        <Input />
+        <Input value={labelText} onChange={handleLabelChange} />
       </Item>
 
       <Item labelText="Type">
@@ -24,9 +43,9 @@ function App() {
         <CheckBox />
       </Item>
 
-      <Item labelText="Default Value">
+      {/* <Item labelText="Default Value">
         <Input />
-      </Item>
+      </Item> */}
 
       <Item labelText="Choices">
         <TextArea />
@@ -37,7 +56,7 @@ function App() {
       </Item>
 
       <Item labelText="">
-        <Button />
+        <Button onClick={handleCheck} />
         <Button />
       </Item>
     </div>
