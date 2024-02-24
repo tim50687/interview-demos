@@ -18,6 +18,7 @@ function App() {
     type: "multi-select",
     choices: [],
   });
+  console.log(formData);
 
   // State for label text is filled or not
   const [isLabelFilled, setIsLabelFilled] = useState(false);
@@ -33,11 +34,19 @@ function App() {
     setIsLabelFilled(e.target.value.length > 0);
   };
 
+  const handleChoicesChange = (e) => {
+    handleFormDataChange("choices", e);
+  };
+
   // Function to execute when the user clicks the "Save" button
   const handleCheck = () => {
     // If the label is not filled, alert the user
     if (!isLabelFilled) {
       alert("Please fill in the label");
+    }
+    // Check if choices are more than 50
+    if (formData.choices.length > 50) {
+      alert("You have more than 50 choices");
     }
   };
 
@@ -59,7 +68,10 @@ function App() {
       </Item> */}
 
       <Item labelText="Choices">
-        <TextArea />
+        <TextArea
+          choices={formData.choices}
+          onChoicesChange={handleChoicesChange}
+        />
       </Item>
 
       <Item labelText="Order">

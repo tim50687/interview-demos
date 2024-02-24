@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-const TextArea = () => {
-  // State for the country list
-  const [country, setCountry] = useState([]);
+const TextArea = ({ choices, onChoicesChange }) => {
   // State for the country input
   const [currentInput, setCurrentInput] = useState("");
 
@@ -21,24 +19,24 @@ const TextArea = () => {
       const newCountry = entries[entries.length - 1];
 
       // If user didn't type anything, or include duplicate country
-      if (newCountry === "") {
+      if (!newCountry) {
         setShowEmptyWarning(true);
-        setShowDuplicateWarning(false);
         e.preventDefault();
       }
       // Check for duplicate country
-      else if (country.includes(newCountry)) {
+      if (choices.includes(newCountry)) {
         setShowDuplicateWarning(true);
-        setShowEmptyWarning(false);
         e.preventDefault();
-      } else {
-        setCountry((prev) => [...prev, newCountry]);
-        // Hide warnings if successfully added
-        setShowDuplicateWarning(false);
-        setShowEmptyWarning(false);
-        // Notify user that the country has been added
-        setNotification(`Added ${newCountry} to the list`);
       }
+
+      // Add the new country to the list
+      onChoicesChange([...choices, newCountry]);
+
+      // Hide warnings if successfully added
+      setShowDuplicateWarning(false);
+      setShowEmptyWarning(false);
+      // Notify user that the country has been added
+      setNotification(`Added ${newCountry} to the list`);
     }
   };
 
@@ -51,9 +49,10 @@ const TextArea = () => {
     // After the change rerender, if the country is removed, remove it from the list
     const entries = e.target.value.split("\n");
 
-    if (entries.length - 1 < country.length) {
+    if (entries.length - 1 < choices.length) {
       setNotification(`Successfully removed country from the list`);
-      setCountry(entries.slice(0, entries.length - 1));
+      // Remove the country from the list
+      onChoicesChange(entries.slice(0, entries.length - 1));
     }
   };
 
