@@ -5,10 +5,10 @@ import Item from "./components/Item";
 
 // Field children components
 import Input from "./components/Field/components/Input";
-// import TextArea from "./components/Field/components/TextArea";
-// import Button from "./components/Field/components/Button";
-// import DropDown from "./components/Field/components/DropDown";
-// import CheckBox from "./components/Field/components/Checkbox";
+import TextArea from "./components/Field/components/TextArea";
+import Button from "./components/Field/components/Button";
+import DropDown from "./components/Field/components/DropDown";
+import CheckBox from "./components/Field/components/Checkbox";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       <Item labelText="Label">
         <Input />
       </Item>
-      {/* <Item labelText="Type">
+      <Item labelText="Type">
         <span>Multi-select</span>
         <CheckBox />
       </Item>
@@ -33,7 +33,7 @@ function App() {
       <Item labelText="">
         <Button />
         <Button />
-      </Item> */}
+      </Item>
     </div>
   );
 }

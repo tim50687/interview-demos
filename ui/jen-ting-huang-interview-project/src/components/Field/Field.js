@@ -1,4 +1,4 @@
-const Field = (children) => {
+const Field = ({ children }) => {
   return <div>{children}</div>;
 };
 
