@@ -13,18 +13,18 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 
-import Header from "./components/Header";
-import Item from "./components/Item/Item";
+import Header from "./Common/Header";
+import Item from "./Item/Item";
 
 // Field children components
-import Input from "./components/Field/components/Input";
-import TextArea from "./components/Field/components/TextArea";
-import Button from "./components/Field/components/Button";
-import DropDown from "./components/Field/components/DropDown";
-import CheckBox from "./components/Field/components/Checkbox";
+import Input from "./Field/components/Input";
+import TextArea from "./Field/components/TextArea";
+import Button from "./Field/components/Button";
+import DropDown from "./Field/components/DropDown";
+import CheckBox from "./Field/components/Checkbox";
 
 // Import the FieldService
-import FieldService from "./MockService";
+import FieldService from "../MockService";
 
 function App() {
   // State for form data

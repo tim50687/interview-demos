@@ -8,7 +8,7 @@
  * @returns {React.ReactElement} A div element wrapping a label and its corresponding form input.
  */
 import Field from "../Field/Field";
-import Label from "../Label";
+import Label from "../Label/Label";
 
 const Item = ({ labelText, children }) => {
   return (
