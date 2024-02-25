@@ -1,0 +1,6 @@
+.label {
+  font-size: 16px;
+  color: #333; /* Dark grey color */
+  margin: 5px 0; /* Adds some space above and below the label */
+  font-weight: bold; /* Makes the text bold */
+}

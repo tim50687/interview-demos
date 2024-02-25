@@ -7,7 +7,7 @@
  * @returns {React.ReactElement} A div element wrapping the provided children.
  */
 const Field = ({ children }) => {
-  return <div>{children}</div>;
+  return <div className="field">{children}</div>;
 };
 
 export default Field; // Export the component for use in other parts of the application

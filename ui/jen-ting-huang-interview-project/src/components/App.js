@@ -149,20 +149,15 @@ function App() {
       <Header />
       <div id="item-container">
         <Item labelText="Label">
-          <Input
-            className="field-children"
-            value={formData.label}
-            onChange={handleLabelChange}
-          />
+          <Input value={formData.label} onChange={handleLabelChange} />
         </Item>
 
         <Item labelText="Type">
-          <span>Multi-select</span>
           <CheckBox
+            prefix="Multi-select"
             label="A value is required"
             checked={formData.type}
             onChange={handleTypeChange}
-            className="checkbox-inline field-children"
           />
         </Item>
 
@@ -170,7 +165,6 @@ function App() {
           <Input
             value={formData.defaultValue}
             onChange={handleDefaultValueChange}
-            className="field-children"
           />
         </Item>
 
@@ -178,12 +172,11 @@ function App() {
           <TextArea
             choices={formData.choices}
             onChoicesChange={handleChoicesChange}
-            className="field-children"
           />
         </Item>
 
         <Item labelText="Order">
-          <DropDown onSelect={handleOrderChange} className="field-children" />
+          <DropDown onSelect={handleOrderChange} />
         </Item>
 
         <Item labelText="">

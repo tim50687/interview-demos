@@ -11,10 +11,16 @@
  */
 
 import "./FieldChild.css";
-const CheckBox = ({ checked, onChange, label, className }) => {
+const CheckBox = ({ prefix, checked, onChange, label, className }) => {
   return (
-    <div className={className}>
-      <input type="checkbox" checked={checked} onChange={onChange} />
+    <div className={`field-children ${className}`}>
+      <div>{prefix}</div>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="checkbox"
+      />
       {label}
     </div>
   );

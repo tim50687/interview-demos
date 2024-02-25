@@ -13,7 +13,11 @@ import "./FieldChild.css";
 const Input = ({ value, onChange, className }) => {
   return (
     <div>
-      <input className={className} value={value} onChange={onChange} />
+      <input
+        className={`field-children ${className}`}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 };

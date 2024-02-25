@@ -13,3 +13,16 @@
   flex-grow: 1; /* Takes up remaining space */
   text-align: left; /* Aligns text to the left */
 }
+
+@media (max-width: 768px) {
+  .item-wrapper {
+    flex-direction: column; /* Stacks the label and field vertically */
+    padding: 5px; /* Reduces padding */
+    align-items: center;
+  }
+  .item-wrapper > :first-child,
+  .item-wrapper > :last-child {
+    flex-basis: auto; /* Resets the initial size to auto for a flexible layout */
+    text-align: center;
+  }
+}

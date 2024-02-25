@@ -1,10 +1,11 @@
-.checkbox-inline {
-  display: inline-block;
+.field-children {
+  width: 80%;
+  height: auto;
 }
 
-.field-children {
-  width: 70%; /* Or any specific width */
-  height: auto;
+.checkbox {
+  margin: 0;
+  margin-right: 3px;
 }
 
 .submit-button {
@@ -31,4 +32,11 @@
 .submit-button:hover,
 .clear-button:hover {
   opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .field-children {
+    width: 100%;
+    height: auto;
+  }
 }

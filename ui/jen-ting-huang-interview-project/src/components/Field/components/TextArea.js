@@ -72,7 +72,7 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
         onChange={handleChange}
         onKeyDown={handleChange}
         rows={10}
-        className={className}
+        className={`field-children ${className}`}
       ></textarea>
       {showDuplicateWarning && (
         <p className="warning">You have already added this country</p>
