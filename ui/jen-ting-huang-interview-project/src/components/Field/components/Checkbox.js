@@ -9,6 +9,8 @@
  * @param {string} [props.className] - Optional CSS class to add to the checkbox container for custom styling.
  * @returns {React.ReactElement} A checkbox element with an optional label.
  */
+
+import "./FieldChild.css";
 const CheckBox = ({ checked, onChange, label, className }) => {
   return (
     <div className={className}>

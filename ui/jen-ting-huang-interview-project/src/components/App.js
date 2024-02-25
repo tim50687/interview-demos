@@ -139,7 +139,6 @@ function App() {
         );
       }
     }
-
     // Send the form data to the FieldService
     FieldService.saveField(formData);
   };
@@ -147,50 +146,59 @@ function App() {
   return (
     <form className="survey" onSubmit={handleSubmit}>
       <Header />
+      <div id="item-container">
+        <Item labelText="Label">
+          <Input
+            className="field-children"
+            value={formData.label}
+            onChange={handleLabelChange}
+          />
+        </Item>
 
-      <Item labelText="Label">
-        <Input
-          className="field-children"
-          value={formData.label}
-          onChange={handleLabelChange}
-        />
-      </Item>
+        <Item labelText="Type">
+          <span>Multi-select</span>
+          <CheckBox
+            label="A value is required"
+            checked={formData.type}
+            onChange={handleTypeChange}
+            className="checkbox-inline field-children"
+          />
+        </Item>
 
-      <Item labelText="Type">
-        <span>Multi-select</span>
-        <CheckBox
-          label="A value is required"
-          checked={formData.type}
-          onChange={handleTypeChange}
-          className="checkbox-inline field-children"
-        />
-      </Item>
+        <Item labelText="Default Value">
+          <Input
+            value={formData.defaultValue}
+            onChange={handleDefaultValueChange}
+            className="field-children"
+          />
+        </Item>
 
-      <Item labelText="Default Value">
-        <Input
-          value={formData.defaultValue}
-          onChange={handleDefaultValueChange}
-          className="field-children"
-        />
-      </Item>
+        <Item labelText="Choices">
+          <TextArea
+            choices={formData.choices}
+            onChoicesChange={handleChoicesChange}
+            className="field-children"
+          />
+        </Item>
 
-      <Item labelText="Choices">
-        <TextArea
-          choices={formData.choices}
-          onChoicesChange={handleChoicesChange}
-          className="field-children"
-        />
-      </Item>
+        <Item labelText="Order">
+          <DropDown onSelect={handleOrderChange} className="field-children" />
+        </Item>
 
-      <Item labelText="Order">
-        <DropDown onSelect={handleOrderChange} className="field-children" />
-      </Item>
-
-      <Item labelText="">
-        <Button label="Save Changes" type="submit" className="submit-button" />
-        <span> Or </span>
-        <Button label="Clear" onClick={handleClear} className="clear-button" />
-      </Item>
+        <Item labelText="">
+          <Button
+            label="Save Changes"
+            type="submit"
+            className="submit-button"
+          />
+          <span> Or </span>
+          <Button
+            label="Clear"
+            onClick={handleClear}
+            className="clear-button"
+          />
+        </Item>
+      </div>
     </form>
   );
 }

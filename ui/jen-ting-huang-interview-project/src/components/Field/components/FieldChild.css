@@ -1,0 +1,34 @@
+.checkbox-inline {
+  display: inline-block;
+}
+
+.field-children {
+  width: 70%; /* Or any specific width */
+  height: auto;
+}
+
+.submit-button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.clear-button {
+  background-color: rgb(243, 60, 60);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+/* Hover effects for better user experience */
+.submit-button:hover,
+.clear-button:hover {
+  opacity: 0.8;
+}

@@ -20,7 +20,7 @@ var FieldService = {
     try {
       // Fetch the data from the mock API
       const response = await fetch(
-        "http://www.mocky.io/v2/566061f21200008e3aabd919",
+        "https://run.mocky.io/v3/8b6a04c6-21ee-41e4-8353-c339c4295f63",
         {
           method: "POST",
           headers: {
@@ -35,14 +35,10 @@ var FieldService = {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-
-      // Console log the response
-      console.log("Success:", data);
       // Log the posted data to the console as well
       console.log("Posted data:", fieldJson);
 
-      return response.json();
+      return;
     } catch (error) {
       console.error("Error posting field data:", error);
     }

@@ -9,6 +9,8 @@
  * @param {string} [props.className] - Optional CSS class to add to the button for custom styling.
  * @returns {React.ReactElement} A button element.
  */
+
+import "./FieldChild.css";
 const Button = ({ label, onClick, type = "button", className }) => {
   return (
     <button type={type} onClick={onClick} className={className}>

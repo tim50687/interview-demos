@@ -9,6 +9,7 @@
  * @returns {React.ReactElement} A textarea element with dynamic content based on user interaction.
  */
 import { useState, useEffect } from "react";
+import "./FieldChild.css";
 
 const TextArea = ({ choices, onChoicesChange, className }) => {
   // State for the country input

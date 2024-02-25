@@ -1,0 +1,15 @@
+.item-wrapper {
+  display: flex; /* Establishes a flex container */
+  align-items: flex-start; /* Aligns children to the start of the cross axis, which is the top in a row layout */
+  padding: 10px; /* Adds padding around the flex container */
+}
+
+.item-wrapper > :first-child {
+  flex-basis: 30%; /* Sets the initial size of the flex item */
+  text-align: left; /* Aligns text to the left */
+}
+
+.item-wrapper > :last-child {
+  flex-grow: 1; /* Takes up remaining space */
+  text-align: left; /* Aligns text to the left */
+}

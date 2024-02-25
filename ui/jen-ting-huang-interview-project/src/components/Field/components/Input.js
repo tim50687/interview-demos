@@ -8,6 +8,8 @@
  * @param {string} [props.className] - Optional CSS class to add to the input for custom styling.
  * @returns {React.ReactElement} An input element wrapped in a div.
  */
+
+import "./FieldChild.css";
 const Input = ({ value, onChange, className }) => {
   return (
     <div>

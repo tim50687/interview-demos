@@ -9,6 +9,7 @@
  */
 import Field from "../Field/Field";
 import Label from "../Label/Label";
+import "./Item.css";
 
 const Item = ({ labelText, children }) => {
   return (

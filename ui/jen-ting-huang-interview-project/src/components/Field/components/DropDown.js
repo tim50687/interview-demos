@@ -7,6 +7,8 @@
  * @param {string} [props.className] - Optional CSS class to add to the dropdown for custom styling.
  * @returns {React.ReactElement} A dropdown element with predefined options.
  */
+
+import "./FieldChild.css";
 const DropDown = ({ onSelect, className }) => {
   return (
     <select className={className} onChange={(e) => onSelect(e.target.value)}>
