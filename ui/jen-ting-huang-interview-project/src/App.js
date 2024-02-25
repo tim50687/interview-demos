@@ -1,3 +1,15 @@
+/**
+ * The App component serves as the root component for a form-building application,
+ * enabling users to create and configure a survey form with various field types.
+ * It manages the state of the form data, including labels, default values, choices,
+ * and the selection type.
+ *
+ * @component
+ * @example
+ * return (
+ *   <App />
+ * )
+ */
 import "./App.css";
 import { useState, useEffect } from "react";
 
@@ -183,4 +195,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; // Export the component for use in other parts of the application
