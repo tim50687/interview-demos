@@ -10,18 +10,6 @@
   --color-border: #e0e3e6;
 }
 
-.survey {
-  width: 100%;
-  height: fit-content;
-  max-width: 480px;
-  margin: 0 auto;
-  background-color: var(--color-white);
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
 body {
   width: 100vw; /* Makes the body take up the full width of the viewport */
   height: 100vh; /* Makes the body take up the full height of the viewport */
@@ -35,6 +23,28 @@ body {
   align-items: center; /* Aligns children to the center of the cross axis */
 }
 
+.survey {
+  width: 100%; /* Forces an element to be as wide as its parent, */
+  height: fit-content;
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: var(--color-white);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 #item-container {
   padding: 1rem; /* Adds padding around the item container */
+}
+
+@media (max-width: 768px) {
+  .survey {
+    max-width: 100%; /* Allows the survey box to expand to the full width of the screen */
+    margin: 10px; /* Adds a little margin around the survey box for smaller screens */
+  }
+  #item-container {
+    padding: 0.5rem; /* Reduces padding for smaller screens */
+  }
 }

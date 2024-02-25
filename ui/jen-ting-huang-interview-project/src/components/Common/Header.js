@@ -6,9 +6,9 @@
  */
 
 import "./Header.css";
-const Header = () => {
+const Header = ({ className }) => {
   return (
-    <div className="survey-header">
+    <div className={`survey-header ${className}`}>
       <h1>Survey Builder</h1>
     </div>
   );
