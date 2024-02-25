@@ -12,14 +12,6 @@ import { useState } from "react";
 import "./FieldChild.css";
 
 const TextArea = ({ choices, onChoicesChange, className }) => {
-  // State for the country input
-  const [currentInput, setCurrentInput] = useState("");
-
-  // If someone touches the choices externally, update the input so that it will render correctly
-  // useEffect(() => {
-  //   setCurrentInput(choices.join("\n"));
-  // }, [choices]);
-
   // State for duplicate country warning
   const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
   // State for empty country warning

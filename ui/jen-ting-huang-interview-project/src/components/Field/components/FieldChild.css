@@ -28,6 +28,15 @@
   border-radius: 5px;
 }
 
+.check-button {
+  background-color: rgb(241, 220, 29);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 /* Hover effects for better user experience */
 .submit-button:hover,
 .clear-button:hover {

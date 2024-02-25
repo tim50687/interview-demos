@@ -110,6 +110,23 @@ function App() {
     dropDown.selectedIndex = 0;
   };
 
+  // Function to highlight text over 40 characters
+  const highlightText = () => {
+    const textarea = document.querySelector("textarea");
+    // Get the text from the textarea
+    const text = textarea.value;
+
+    const lines = text.split("\n");
+
+    for (let i = 0, pos = 0; i < lines.length; i++) {
+      if (lines[i].length > 40) {
+        textarea.focus();
+        textarea.setSelectionRange(pos, pos + lines[i].length);
+      }
+      pos += lines[i].length + 1;
+    }
+  };
+
   // Handle order change
   const handleOrderChange = (orderType) => {
     // Only store the original choices once
@@ -205,6 +222,11 @@ function App() {
           <TextArea
             choices={formData.choices}
             onChoicesChange={handleChoicesChange}
+          />
+          <Button
+            label="Check"
+            onClick={highlightText}
+            className="check-button"
           />
         </Item>
 
