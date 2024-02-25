@@ -80,7 +80,7 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
   return (
     <div>
       <textarea
-        value={choices.join("\n")} // force the value to be the currentInput
+        value={choices?.join("\n")} // force the value to be the currentInput
         onChange={handleChange}
         onKeyDown={handleChange}
         rows={10}

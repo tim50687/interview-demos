@@ -30,9 +30,10 @@ function App() {
   // State for form data
   const [formData, setFormData] = useState({
     label: "",
-    type: false,
-    defaultValue: "",
+    required: false,
+    default: "", // default value for choices
     choices: [],
+    displayOrder: "",
   });
 
   // State for original choices
@@ -46,6 +47,7 @@ function App() {
   useEffect(() => {
     // Load the form data from local storage
     const storedFormData = JSON.parse(localStorage.getItem("formData"));
+    console.log(storedFormData);
     if (storedFormData) {
       // Set the form data and label filled state
       setFormData(storedFormData);
@@ -64,8 +66,14 @@ function App() {
   }, [submitReady, formData]);
 
   // Handler to update specific form data field
-  const handleFormDataChange = (name, value) => {
+  const handleFormDataChange = (name, value, data = {}) => {
+    if (data && Object.keys(data).length > 0) {
+      setFormData(data);
+      localStorage.setItem("formData", JSON.stringify(data));
+      return;
+    }
     const updatedFormData = { ...formData, [name]: value };
+    console.log("dsadasdja", updatedFormData);
     setFormData(updatedFormData);
     // Store in local storage
     localStorage.setItem("formData", JSON.stringify(updatedFormData));
@@ -78,7 +86,7 @@ function App() {
 
   // Handle the onChange for input component for default value
   const handleDefaultValueChange = (e) => {
-    handleFormDataChange("defaultValue", e.target.value);
+    handleFormDataChange("default", e.target.value);
   };
 
   // Handle the onChange for textarea component for choices
@@ -88,16 +96,17 @@ function App() {
 
   // Handle type change
   const handleTypeChange = (e) => {
-    handleFormDataChange("type", e.target.checked);
+    handleFormDataChange("required", e.target.checked);
   };
 
   // Handle Clear button
   const handleClear = () => {
     const emptyFormData = {
       label: "",
-      type: false,
-      defaultValue: "",
+      required: false,
+      default: "", // default value for choices
       choices: [],
+      displayOrder: "",
     };
     setFormData(emptyFormData);
     // Clear local storage
@@ -119,8 +128,10 @@ function App() {
 
     for (let i = 0, pos = 0; i < lines.length; i++) {
       if (lines[i].length > 40) {
+        // When you find it, you focos on it
         textarea.focus();
-        textarea.setSelectionRange(pos, pos + lines[i].length);
+        // highlight the text after 40th character
+        textarea.setSelectionRange(pos + 40, pos + lines[i].length);
       }
       pos += lines[i].length + 1;
     }
@@ -128,6 +139,8 @@ function App() {
 
   // Handle order change
   const handleOrderChange = (orderType) => {
+    // Create a copy of formData
+    const newFormData = { ...formData };
     // Only store the original choices once
     if (originalChoices.length === 0) {
       setOriginalChoices(formData.choices);
@@ -138,16 +151,18 @@ function App() {
     if (formData.choices[formData.choices.length - 1] === "") {
       newAllChoices = formData.choices.slice(0, formData.choices.length - 1);
     }
+    newFormData.displayOrder = orderType;
     // Order choices based on the order type
     if (orderType === "alphabetical") {
       const sortedChoices = newAllChoices.sort();
-      handleFormDataChange("choices", sortedChoices);
+      newFormData.choices = sortedChoices;
     } else if (orderType === "length") {
       const sortedChoices = newAllChoices.sort((a, b) => a.length - b.length);
-      handleFormDataChange("choices", sortedChoices);
+      newFormData.choices = sortedChoices;
     } else if (orderType === "") {
-      handleFormDataChange("choices", originalChoices);
+      newFormData.choices = originalChoices;
     }
+    handleFormDataChange("", "", newFormData);
   };
 
   // Function to execute when the user clicks the "Save" button
@@ -172,16 +187,24 @@ function App() {
       newAllChoices = formData.choices.slice(0, formData.choices.length - 1);
     }
     // Check if default value is empty
-    if (formData.defaultValue.length === 0) {
-      await handleChoicesChange(newAllChoices);
+    if (formData.default.length === 0) {
+      handleChoicesChange(newAllChoices);
       setSubmitReady(true);
       return;
     }
     // Check if the default value is in the choices
-    if (!formData.choices.includes(formData.defaultValue)) {
+    if (!formData.choices.includes(formData.default)) {
       if (formData.choices.length < 50) {
-        newAllChoices.push(formData.defaultValue);
-        await handleChoicesChange(newAllChoices);
+        // Sort it again after adding the default value
+        newAllChoices.push(formData.default);
+        newAllChoices =
+          formData.displayOrder === "alphabetical"
+            ? newAllChoices.sort()
+            : formData.displayOrder === "length"
+            ? newAllChoices.sort((a, b) => a.length - b.length)
+            : newAllChoices;
+
+        handleChoicesChange(newAllChoices);
       } else {
         alert(
           "You have already 50 choices, I cannot add default value for you into the choice."
@@ -190,7 +213,7 @@ function App() {
       }
     } // If the default value is in the choices, do nothing
     else {
-      await handleChoicesChange(newAllChoices);
+      handleChoicesChange(newAllChoices);
     }
     // Set a flag to indicate that the form is ready to be submitted
     setSubmitReady(true);
@@ -208,16 +231,13 @@ function App() {
           <CheckBox
             prefix="Multi-select"
             label="A value is required"
-            checked={formData.type}
+            checked={formData.required ? true : false}
             onChange={handleTypeChange}
           />
         </Item>
 
         <Item labelText="Default Value">
-          <Input
-            value={formData.defaultValue}
-            onChange={handleDefaultValueChange}
-          />
+          <Input value={formData.default} onChange={handleDefaultValueChange} />
         </Item>
 
         <Item labelText="Choices">
@@ -226,7 +246,7 @@ function App() {
             onChoicesChange={handleChoicesChange}
           />
           <Button
-            label="Check"
+            label="Check Length"
             onClick={highlightText}
             className="check-button"
           />

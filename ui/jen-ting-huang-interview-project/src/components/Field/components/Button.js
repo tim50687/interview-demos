@@ -7,13 +7,14 @@
  * @param {function} props.onClick - Function to call when the button is clicked.
  * @param {string} [props.type="button"] - Specifies the button type. Defaults to "button". Can also be "submit" or "reset".
  * @param {string} [props.className] - Optional CSS class to add to the button for custom styling.
+ * @param {Object} props - Any other props will be passed to the button element.
  * @returns {React.ReactElement} A button element.
  */
 
 import "./FieldChild.css";
-const Button = ({ label, onClick, type = "button", className }) => {
+const Button = ({ label, onClick, type = "button", className, ...props }) => {
   return (
-    <button type={type} onClick={onClick} className={className}>
+    <button {...props} type={type} onClick={onClick} className={className}>
       {label}
     </button>
   );
