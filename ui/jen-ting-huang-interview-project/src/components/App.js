@@ -154,7 +154,7 @@ function App() {
     newFormData.displayOrder = orderType;
     // Order choices based on the order type
     if (orderType === "alphabetical") {
-      const sortedChoices = newAllChoices.sort();
+      const sortedChoices = newAllChoices.sort((a, b) => a.localeCompare(b));
       newFormData.choices = sortedChoices;
     } else if (orderType === "length") {
       const sortedChoices = newAllChoices.sort((a, b) => a.length - b.length);
@@ -193,13 +193,17 @@ function App() {
       return;
     }
     // Check if the default value is in the choices
-    if (!formData.choices.includes(formData.default)) {
+    if (
+      !formData.choices.filter(
+        (choice) => choice.toLowerCase() === formData.default.toLowerCase()
+      ).length > 0
+    ) {
       if (formData.choices.length < 50) {
         // Sort it again after adding the default value
         newAllChoices.push(formData.default);
         newAllChoices =
           formData.displayOrder === "alphabetical"
-            ? newAllChoices.sort()
+            ? newAllChoices.sort((a, b) => a.localeCompare(b))
             : formData.displayOrder === "length"
             ? newAllChoices.sort((a, b) => a.length - b.length)
             : newAllChoices;

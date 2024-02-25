@@ -45,7 +45,7 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
     if (e.key === "Enter") {
       const entries = e.target.value.split("\n");
       // Add the current input to the country list
-      const newCountry = entries[entries.length - 1];
+      const newCountry = entries[entries.length - 1].toLowerCase();
 
       // If user didn't type anything, or include duplicate country
       if (!newCountry) {
@@ -54,7 +54,10 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
         return;
       }
       // Check for duplicate country
-      if (entries.filter((choice) => choice === newCountry).length >= 2) {
+      if (
+        entries.filter((choice) => choice.toLowerCase() === newCountry)
+          .length >= 2
+      ) {
         onChoicesChange(entries.slice(0, entries.length - 1));
         setShowDuplicateWarning(true);
         e.preventDefault();
@@ -82,7 +85,6 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
       <textarea
         value={choices?.join("\n")} // force the value to be the currentInput
         onChange={handleChange}
-        onKeyDown={handleChange}
         rows={10}
         className={`field-children ${className}`}
       ></textarea>
