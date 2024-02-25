@@ -69,7 +69,6 @@ function App() {
     setFormData(updatedFormData);
     // Store in local storage
     localStorage.setItem("formData", JSON.stringify(updatedFormData));
-    console.log(updatedFormData);
   };
 
   // Handle the onChange for input component for label
@@ -133,14 +132,18 @@ function App() {
     if (originalChoices.length === 0) {
       setOriginalChoices(formData.choices);
     }
+    // Deal with the last choice, see if it's empty
+    let newAllChoices = formData.choices;
+    // If last choice is [], remove it
+    if (formData.choices[formData.choices.length - 1] === "") {
+      newAllChoices = formData.choices.slice(0, formData.choices.length - 1);
+    }
     // Order choices based on the order type
     if (orderType === "alphabetical") {
-      const sortedChoices = [...formData.choices].sort();
+      const sortedChoices = newAllChoices.sort();
       handleFormDataChange("choices", sortedChoices);
     } else if (orderType === "length") {
-      const sortedChoices = [...formData.choices].sort(
-        (a, b) => a.length - b.length
-      );
+      const sortedChoices = newAllChoices.sort((a, b) => a.length - b.length);
       handleFormDataChange("choices", sortedChoices);
     } else if (orderType === "") {
       handleFormDataChange("choices", originalChoices);
@@ -178,7 +181,6 @@ function App() {
     if (!formData.choices.includes(formData.defaultValue)) {
       if (formData.choices.length < 50) {
         newAllChoices.push(formData.defaultValue);
-        console.log(newAllChoices);
         await handleChoicesChange(newAllChoices);
       } else {
         alert(

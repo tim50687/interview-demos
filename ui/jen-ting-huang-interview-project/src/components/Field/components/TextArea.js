@@ -19,6 +19,27 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
   // State for adding and removing country
   const [notification, setNotification] = useState("");
 
+  // Logic for return notification
+  const prepareNotificationText = () => {
+    // Directly return the notification if it matches the specific case
+    if (notification === "Successfully removed") {
+      return notification;
+    }
+
+    // Handle the case for when there is only one choice
+    if (choices.length === 1 && choices[0].length > 10) {
+      return `${notification.slice(0, 15)}…`;
+    }
+
+    // Handle the case for when there are two or more choices
+    if (choices.length >= 2 && choices[choices.length - 2].length > 10) {
+      return `${notification.slice(0, 15)}…`;
+    }
+
+    // Default case: return the notification as is
+    return notification;
+  };
+
   const handleChange = (e) => {
     // First check if it's ENTER
     if (e.key === "Enter") {
@@ -32,7 +53,6 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
         e.preventDefault();
         return;
       }
-      console.log(choices);
       // Check for duplicate country
       if (entries.filter((choice) => choice === newCountry).length >= 2) {
         onChoicesChange(entries.slice(0, entries.length - 1));
@@ -41,14 +61,14 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
         return;
       }
       // Notify user that the country has been added
-      setNotification(`Added ${newCountry} to the list`);
+      setNotification(`Added ${newCountry}`);
     } // If the user presses the Backspace key
     else if (e.key === "Backspace") {
       // If the user presses the Backspace key
       const entries = e.target.value.split("\n");
       // If the user is trying to delete a country
       if (entries.filter((choice) => choice === "").length > 1) {
-        setNotification(`Successfully removed country from the list`);
+        setNotification(`Successfully removed`);
       }
     }
     // Update the current input
@@ -71,7 +91,7 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
       )}
       {showEmptyWarning && <p className="warning">Please enter a country</p>}
       {notification && choices.length !== 0 && (
-        <p className="notification">{notification}</p>
+        <p className="notification">{prepareNotificationText()}</p>
       )}
     </div>
   );
