@@ -85,6 +85,7 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
       <textarea
         value={choices?.join("\n")} // force the value to be the currentInput
         onChange={handleChange}
+        onKeyDown={handleChange}
         rows={10}
         className={`field-children ${className}`}
       ></textarea>
