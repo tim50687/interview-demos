@@ -14,7 +14,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
-import Item from "./components/Item";
+import Item from "./components/Item/Item";
 
 // Field children components
 import Input from "./components/Field/components/Input";
