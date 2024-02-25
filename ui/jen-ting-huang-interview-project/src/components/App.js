@@ -38,6 +38,10 @@ function App() {
   // State for original choices
   const [originalChoices, setOriginalChoices] = useState([]);
 
+  // State for submit ready,
+  // Make sure the form be submit after the dafault value is in the choices
+  const [submitReady, setSubmitReady] = useState(false);
+
   // Load the form data from local storage when the component mounts
   useEffect(() => {
     // Load the form data from local storage
@@ -48,12 +52,24 @@ function App() {
     }
   }, []);
 
+  // Effect to handle the actual submission
+  useEffect(() => {
+    if (submitReady) {
+      // Ensure we have the latest form data before submitting
+      FieldService.saveField(formData);
+
+      // Reset trigger to avoid re-submitting
+      setSubmitReady(false);
+    }
+  }, [submitReady, formData]);
+
   // Handler to update specific form data field
   const handleFormDataChange = (name, value) => {
     const updatedFormData = { ...formData, [name]: value };
     setFormData(updatedFormData);
     // Store in local storage
     localStorage.setItem("formData", JSON.stringify(updatedFormData));
+    console.log(updatedFormData);
   };
 
   // Handle the onChange for input component for label
@@ -115,7 +131,7 @@ function App() {
   };
 
   // Function to execute when the user clicks the "Save" button
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // Prevent the default form submission
     e.preventDefault();
     // If the label is not filled, alert the user
@@ -128,20 +144,37 @@ function App() {
       alert("You have more than 50 choices");
       return;
     }
+
+    // Deal with the last choice, see if it's empty
+    let newAllChoices = formData.choices;
+    // If last choice is [], remove it
+    if (formData.choices[formData.choices.length - 1] === "") {
+      newAllChoices = formData.choices.slice(0, formData.choices.length - 1);
+    }
+    // Check if default value is empty
+    if (formData.defaultValue.length === 0) {
+      await handleChoicesChange(newAllChoices);
+      setSubmitReady(true);
+      return;
+    }
     // Check if the default value is in the choices
     if (!formData.choices.includes(formData.defaultValue)) {
       if (formData.choices.length < 50) {
-        // Add the default value to the choices
-        handleChoicesChange([...formData.choices, formData.defaultValue]);
+        newAllChoices.push(formData.defaultValue);
+        console.log(newAllChoices);
+        await handleChoicesChange(newAllChoices);
       } else {
         alert(
           "You have already 50 choices, I cannot add default value for you into the choice."
         );
         return;
       }
+    } // If the default value is in the choices, do nothing
+    else {
+      await handleChoicesChange(newAllChoices);
     }
-    // Send the form data to the FieldService
-    FieldService.saveField(formData);
+    // Set a flag to indicate that the form is ready to be submitted
+    setSubmitReady(true);
   };
 
   return (
