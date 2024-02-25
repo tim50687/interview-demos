@@ -1,3 +1,13 @@
+/**
+ * Represents a textarea component designed for inputting and editing a list of choices.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Array} props.choices - The current list of choices to be displayed in the textarea.
+ * @param {function} props.onChoicesChange - Callback function to update the choices list when it changes.
+ * @param {string} [props.className] - Optional CSS class for styling the textarea component.
+ * @returns {React.ReactElement} A textarea element with dynamic content based on user interaction.
+ */
 import { useState, useEffect } from "react";
 
 const TextArea = ({ choices, onChoicesChange, className }) => {
@@ -83,4 +93,4 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
   );
 };
 
-export default TextArea;
+export default TextArea; // Export the component for use in other parts of the application
