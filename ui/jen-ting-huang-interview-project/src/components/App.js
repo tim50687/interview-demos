@@ -35,9 +35,6 @@ function App() {
     choices: [],
   });
 
-  // State for label text is filled or not
-  const [isLabelFilled, setIsLabelFilled] = useState(false);
-
   // State for original choices
   const [originalChoices, setOriginalChoices] = useState([]);
 
@@ -48,7 +45,6 @@ function App() {
     if (storedFormData) {
       // Set the form data and label filled state
       setFormData(storedFormData);
-      setIsLabelFilled(storedFormData.label.length > 0);
     }
   }, []);
 
@@ -63,7 +59,6 @@ function App() {
   // Handle the onChange for input component for label
   const handleLabelChange = (e) => {
     handleFormDataChange("label", e.target.value);
-    setIsLabelFilled(e.target.value.length > 0);
   };
 
   // Handle the onChange for input component for default value
@@ -83,12 +78,15 @@ function App() {
 
   // Handle Clear button
   const handleClear = () => {
-    setFormData({
+    const emptyFormData = {
       label: "",
       type: false,
       defaultValue: "",
       choices: [],
-    });
+    };
+    setFormData(emptyFormData);
+    // Clear local storage
+    localStorage.setItem("formData", JSON.stringify(emptyFormData));
     // Make sure originalChoices is cleared
     setOriginalChoices([]);
     // Make drop down back to default
@@ -121,12 +119,14 @@ function App() {
     // Prevent the default form submission
     e.preventDefault();
     // If the label is not filled, alert the user
-    if (!isLabelFilled) {
+    if (formData.label.length === 0) {
       alert("Please fill in the label");
+      return;
     }
     // Check if choices are more than 50
     if (formData.choices.length > 50) {
       alert("You have more than 50 choices");
+      return;
     }
     // Check if the default value is in the choices
     if (!formData.choices.includes(formData.defaultValue)) {
@@ -137,6 +137,7 @@ function App() {
         alert(
           "You have already 50 choices, I cannot add default value for you into the choice."
         );
+        return;
       }
     }
     // Send the form data to the FieldService

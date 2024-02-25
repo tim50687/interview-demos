@@ -8,7 +8,7 @@
  * @param {string} [props.className] - Optional CSS class for styling the textarea component.
  * @returns {React.ReactElement} A textarea element with dynamic content based on user interaction.
  */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./FieldChild.css";
 
 const TextArea = ({ choices, onChoicesChange, className }) => {
@@ -16,9 +16,9 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
   const [currentInput, setCurrentInput] = useState("");
 
   // If someone touches the choices externally, update the input so that it will render correctly
-  useEffect(() => {
-    setCurrentInput(choices.join("\n"));
-  }, [choices]);
+  // useEffect(() => {
+  //   setCurrentInput(choices.join("\n"));
+  // }, [choices]);
 
   // State for duplicate country warning
   const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
@@ -27,10 +27,10 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
   // State for adding and removing country
   const [notification, setNotification] = useState("");
 
-  const handleKeyDown = (e) => {
-    // If the user presses the Enter key
+  const handleChange = (e) => {
+    // First check if it's ENTER
     if (e.key === "Enter") {
-      const entries = currentInput.split("\n");
+      const entries = e.target.value.split("\n");
       // Add the current input to the country list
       const newCountry = entries[entries.length - 1];
 
@@ -40,46 +40,37 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
         e.preventDefault();
         return;
       }
+      console.log(choices);
       // Check for duplicate country
-      if (choices.includes(newCountry)) {
+      if (entries.filter((choice) => choice === newCountry).length >= 2) {
+        onChoicesChange(entries.slice(0, entries.length - 1));
         setShowDuplicateWarning(true);
         e.preventDefault();
         return;
       }
-
-      // Add the new country to the list
-      onChoicesChange([...choices, newCountry]);
-
-      // Hide warnings if successfully added
-      setShowDuplicateWarning(false);
-      setShowEmptyWarning(false);
       // Notify user that the country has been added
       setNotification(`Added ${newCountry} to the list`);
+    } // If the user presses the Backspace key
+    else if (e.key === "Backspace") {
+      // If the user presses the Backspace key
+      const entries = e.target.value.split("\n");
+      // If the user is trying to delete a country
+      if (entries.filter((choice) => choice === "").length > 1) {
+        setNotification(`Successfully removed country from the list`);
+      }
     }
-  };
-
-  const handleChange = (e) => {
-    // Normal case, if user types something
-    setCurrentInput(e.target.value);
+    // Update the current input
+    onChoicesChange(e.target.value.split("\n"));
     setShowDuplicateWarning(false);
     setShowEmptyWarning(false);
-
-    // After the change rerender, if the country is removed, remove it from the list
-    const entries = e.target.value.split("\n");
-
-    if (entries.length - 1 < choices.length) {
-      setNotification(`Successfully removed country from the list`);
-      // Remove the country from the list
-      onChoicesChange(entries.slice(0, entries.length - 1));
-    }
   };
 
   return (
     <div>
       <textarea
-        value={currentInput} // force the value to be the currentInput
+        value={choices.join("\n")} // force the value to be the currentInput
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleChange}
         rows={10}
         className={className}
       ></textarea>
