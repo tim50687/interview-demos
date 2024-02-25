@@ -5,6 +5,7 @@
  * @returns {React.ReactElement} A header element containing the application title.
  */
 
+import "./Header.css";
 const Header = () => {
   return (
     <div className="survey-header">
