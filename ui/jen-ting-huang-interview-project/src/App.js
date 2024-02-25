@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Item from "./components/Item";
@@ -29,9 +29,23 @@ function App() {
   // State for original choices
   const [originalChoices, setOriginalChoices] = useState([]);
 
+  // Load the form data from local storage when the component mounts
+  useEffect(() => {
+    // Load the form data from local storage
+    const storedFormData = JSON.parse(localStorage.getItem("formData"));
+    if (storedFormData) {
+      // Set the form data and label filled state
+      setFormData(storedFormData);
+      setIsLabelFilled(storedFormData.label.length > 0);
+    }
+  }, []);
+
   // Handler to update specific form data field
   const handleFormDataChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const updatedFormData = { ...formData, [name]: value };
+    setFormData(updatedFormData);
+    // Store in local storage
+    localStorage.setItem("formData", JSON.stringify(updatedFormData));
   };
 
   // Handle the onChange for input component for label
