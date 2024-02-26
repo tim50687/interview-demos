@@ -164,7 +164,7 @@ function App() {
   };
 
   // Function to execute when the user clicks the "Save" button
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     // Prevent the default form submission
     e.preventDefault();
     // If the label is not filled, alert the user
