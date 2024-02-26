@@ -19,16 +19,13 @@ var FieldService = {
   saveField: async function (fieldJson) {
     try {
       // Fetch the data from the mock API
-      const response = await fetch(
-        "https://run.mocky.io/v3/8b6a04c6-21ee-41e4-8353-c339c4295f63",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(fieldJson),
-        }
-      );
+      const response = await fetch("https://timqb.free.beeceptor.com/test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(fieldJson),
+      });
 
       // If the response is not ok, throw an error
       if (!response.ok) {
