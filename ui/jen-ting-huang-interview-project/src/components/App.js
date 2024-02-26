@@ -47,7 +47,6 @@ function App() {
   useEffect(() => {
     // Load the form data from local storage
     const storedFormData = JSON.parse(localStorage.getItem("formData"));
-    console.log(storedFormData);
     if (storedFormData) {
       // Set the form data and label filled state
       setFormData(storedFormData);
@@ -73,7 +72,6 @@ function App() {
       return;
     }
     const updatedFormData = { ...formData, [name]: value };
-    console.log("dsadasdja", updatedFormData);
     setFormData(updatedFormData);
     // Store in local storage
     localStorage.setItem("formData", JSON.stringify(updatedFormData));
