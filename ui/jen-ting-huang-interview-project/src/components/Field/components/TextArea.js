@@ -45,17 +45,17 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
     if (e.key === "Enter") {
       const entries = e.target.value.split("\n");
       // Add the current input to the country list
-      const newCountry = entries[entries.length - 1].toLowerCase();
+      const newChoices = entries[entries.length - 1].toLowerCase();
 
       // If user didn't type anything, or include duplicate country
-      if (!newCountry) {
+      if (!newChoices) {
         setShowEmptyWarning(true);
         e.preventDefault();
         return;
       }
       // Check for duplicate country
       if (
-        entries.filter((choice) => choice.toLowerCase() === newCountry)
+        entries.filter((choice) => choice.toLowerCase() === newChoices)
           .length >= 2
       ) {
         onChoicesChange(entries.slice(0, entries.length - 1));
@@ -64,7 +64,7 @@ const TextArea = ({ choices, onChoicesChange, className }) => {
         return;
       }
       // Notify user that the country has been added
-      setNotification(`Added ${newCountry}`);
+      setNotification(`Added ${newChoices}`);
     } // If the user presses the Backspace key
     else if (e.key === "Backspace") {
       // If the user presses the Backspace key
